@@ -26,10 +26,15 @@ public class CustomerManager {
     public List<String> checkCustomers() {
         DatabaseManager databaseManager = new DatabaseManager();
         // TODO Get Customers from DatabaseManager using the method getCustomers
+        List<String> customers = databaseManager.getCustomers();
 
         // TODO Use List's forEach() method with a lambda expression to check the status for each customer,
         //  emailing each customer who has not accepted the new terms.
-
+        customers.forEach(customer -> {
+            if (!databaseManager.checkCustomer(customer)) {
+                databaseManager.emailCustomer(customer);
+            }
+        });
         return databaseManager.getEmailedCustomers();
     }
 }
